@@ -26,5 +26,7 @@ module.exports = {
     'react/static-property-placement': 'off',
     'react/jsx-props-no-spreading': 'off',
     'import/prefer-default-export': 'off',
+    'class-methods-use-this': 'off',
+    'no-unused-vars': 'off',
   },
 };
