@@ -9,15 +9,21 @@ import {
   ContainerCart,
   ItensCart,
   Circle,
+  ButtonHome,
+  ButtonCart,
 } from './styles';
 
-export default function Header() {
+export default function Header({navigation}) {
   return (
     <Wrapper>
       <Container>
-        <Logo />
+        <ButtonHome onPress={() => navigation.navigate('Home')}>
+          <Logo />
+        </ButtonHome>
         <ContainerCart>
-          <Icons name="add-shopping-cart" size={28} color="#FFF" />
+          <ButtonCart onPress={() => navigation.navigate('Cart')}>
+            <Icons name="add-shopping-cart" size={28} color="#FFF" />
+          </ButtonCart>
           <Circle>
             <ItensCart>10</ItensCart>
           </Circle>

@@ -15,7 +15,7 @@ import {
   ItensCart,
   ContainerCart,
 } from './styles';
-import Header from '../../components/Header';
+
 import {formatPrice} from '../../util/format';
 
 import api from '../../services/api';
@@ -37,6 +37,11 @@ class Home extends Component {
     });
   }
 
+  handleAddCart = () => {
+    const {navigation} = this.props;
+    navigation.navigate('Cart');
+  };
+
   render() {
     const {products} = this.state;
     return (
@@ -54,7 +59,7 @@ class Home extends Component {
                 />
                 <DescriptionItem>{item.title}</DescriptionItem>
                 <TextPrice>{item.priceFormated}</TextPrice>
-                <CartButton>
+                <CartButton onPress={() => this.handleAddCart(item.id)}>
                   <ContainerCart>
                     <Icon name="shopping-cart" size={21} color="#FFF" />
                     <ItensCart>10</ItensCart>

@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {RectButton} from 'react-native-gesture-handler';
 import logo from '../../assets/logo.png';
 
 export const Wrapper = styled.SafeAreaView`
@@ -11,6 +12,7 @@ export const Container = styled.View`
   padding: 10px;
   margin: 5px 10px;
 `;
+export const ButtonHome = styled(RectButton)``;
 export const Logo = styled.Image.attrs({
   source: logo,
   resizeMode: 'cover',
@@ -19,6 +21,7 @@ export const Logo = styled.Image.attrs({
   height: 24px;
 `;
 export const ContainerCart = styled.View``;
+export const ButtonCart = styled(RectButton)``;
 export const Circle = styled.View`
   background: #7159c1;
   border-radius: 50px;
