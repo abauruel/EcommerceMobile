@@ -15,12 +15,12 @@ const Routes = createAppContainer(
     {
       headerLayoutPreset: 'center',
       headerBackTitleVisible: false,
-      defaultNavigationOptions: {
-        header: () => <Header />,
+      defaultNavigationOptions: navigation => ({
+        header: <Header {...navigation} />,
         headerStyle: {
           backgroundColor: '#191919',
         },
-      },
+      }),
     }
   )
 );
