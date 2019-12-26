@@ -34,14 +34,14 @@ import {
 
 class Cart extends Component {
   handleIncremment = product => {
-    const {updateCart} = this.props;
-    updateCart(product.id, product.amount + 1);
+    const {updateCartRequest} = this.props;
+    updateCartRequest(product.id, product.amount + 1);
   };
 
   handleDecrement = product => {
-    const {updateCart} = this.props;
+    const {updateCartRequest} = this.props;
 
-    updateCart(product.id, product.amount - 1);
+    updateCartRequest(product.id, product.amount - 1);
   };
 
   render() {

@@ -41,8 +41,8 @@ class Home extends Component {
   }
 
   handleAddCart = item => {
-    const {addCart} = this.props;
-    addCart(item);
+    const {addCartRequest} = this.props;
+    addCartRequest(item.id);
     const {navigation} = this.props;
     navigation.navigate('Cart');
   };
