@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import {View, Text, Image} from 'react-native';
-
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {formatPrice} from '../../util/format';
+import * as CartActions from '../../store/modules/cart/action';
+
 import {
   Wrapper,
   Container,
@@ -24,58 +28,25 @@ import {
   IconRemove,
   IconAdd,
   ContainerTextAmount,
+  ButtonAmount,
+  ButtonRemove,
 } from './styles';
 
-export default class Cart extends Component {
-  state = {
-    products: [
-      {
-        id: 1,
-        title: 'Tênis de Caminhada Leve Confortável',
-        price: 179.9,
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-      },
-      {
-        id: 2,
-        title: 'Tênis VR Caminhada Confortável Detalhes Couro Masculino',
-        price: 139.9,
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis2.jpg',
-      },
-      {
-        id: 3,
-        title: 'Tênis Adidas Duramo Lite 2.0',
-        price: 219.9,
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis3.jpg',
-      },
-      {
-        id: 5,
-        title: 'Tênis VR Caminhada Confortável Detalhes Couro Masculino',
-        price: 139.9,
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis2.jpg',
-      },
-      {
-        id: 6,
-        title: 'Tênis Adidas Duramo Lite 2.0',
-        price: 219.9,
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis3.jpg',
-      },
-      {
-        id: 4,
-        title: 'Tênis de Caminhada Leve Confortável',
-        price: 179.9,
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-      },
-    ],
+class Cart extends Component {
+  handleIncremment = product => {
+    const {updateCart} = this.props;
+    updateCart(product.id, product.amount + 1);
+  };
+
+  handleDecrement = product => {
+    const {updateCart} = this.props;
+
+    updateCart(product.id, product.amount - 1);
   };
 
   render() {
-    const {products} = this.state;
+    const {products, total, deleteToCart} = this.props;
+
     return (
       <Wrapper>
         <Container>
@@ -89,28 +60,33 @@ export default class Cart extends Component {
                     <PictureItem source={{uri: item.image}} />
                     <ContainerTextsInfo>
                       <TextTitleItem>{item.title}</TextTitleItem>
-                      <TextPriceItem>{item.price}</TextPriceItem>
+                      <TextPriceItem>{item.formatedPrice}</TextPriceItem>
                     </ContainerTextsInfo>
-                    <IconDelete name="delete" size={21} color="#7159c1" />
+                    <ButtonRemove onPress={() => deleteToCart(item.id)}>
+                      <IconDelete name="delete" size={21} color="#7159c1" />
+                    </ButtonRemove>
                   </ContainerItemInfo>
                   <ContainerAmountSubtotal>
                     <ContainerAmount>
                       <IconRemove
+                        onPress={() => this.handleDecrement(item)}
                         name="remove-circle-outline"
                         size={16}
                         color="#7159c1"
                       />
                       <ContainerTextAmount>
-                        <Text>3</Text>
+                        <Text>{item.amount}</Text>
                       </ContainerTextAmount>
-                      <IconAdd
-                        name="add-circle-outline"
-                        size={16}
-                        color="#7159c1"
-                      />
+                      <ButtonAmount onPress={() => this.handleIncremment(item)}>
+                        <IconAdd
+                          name="add-circle-outline"
+                          size={16}
+                          color="#7159c1"
+                        />
+                      </ButtonAmount>
                     </ContainerAmount>
                     <View>
-                      <Text>R$ 123,00</Text>
+                      <Text>{item.subtotal}</Text>
                     </View>
                   </ContainerAmountSubtotal>
                 </ContainerItem>
@@ -120,7 +96,7 @@ export default class Cart extends Component {
             <ContainerTotalPrice>
               <TextTotalContainerTotalPrice>Total</TextTotalContainerTotalPrice>
               <TextTPriceContainerTotalPrice>
-                R$ 161,00
+                {total}
               </TextTPriceContainerTotalPrice>
             </ContainerTotalPrice>
 
@@ -133,3 +109,18 @@ export default class Cart extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  products: state.cart.map(product => ({
+    ...product,
+    subtotal: formatPrice(product.price * product.amount),
+  })),
+  total: formatPrice(
+    state.cart.reduce((total, product) => {
+      return total + product.price * product.amount;
+    }, 0)
+  ),
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

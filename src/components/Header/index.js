@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Image} from 'react-native';
+import {connect} from 'react-redux';
 
 import Icons from 'react-native-vector-icons/MaterialIcons';
 import {
@@ -13,7 +13,7 @@ import {
   ButtonCart,
 } from './styles';
 
-export default function Header({navigation}) {
+function Header({navigation, cartSize}) {
   return (
     <Wrapper>
       <Container>
@@ -25,10 +25,16 @@ export default function Header({navigation}) {
             <Icons name="add-shopping-cart" size={28} color="#FFF" />
           </ButtonCart>
           <Circle>
-            <ItensCart>10</ItensCart>
+            <ItensCart>{cartSize}</ItensCart>
           </Circle>
         </ContainerCart>
       </Container>
     </Wrapper>
   );
 }
+
+const mapStateToProps = state => ({
+  cartSize: state.cart.length,
+});
+
+export default connect(mapStateToProps)(Header);

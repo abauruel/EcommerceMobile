@@ -91,3 +91,6 @@ export const TextTPriceContainerTotalPrice = styled.Text`
   font-size: 30px;
   font-weight: bold;
 `;
+
+export const ButtonAmount = styled(RectButton)``;
+export const ButtonRemove = styled(RectButton)``;
