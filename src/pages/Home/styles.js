@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-  import {RectButton} from 'react-native-gesture-handler';
+import {RectButton} from 'react-native-gesture-handler';
 import {Dimensions} from 'react-native';
 import {darken} from 'polished';
 
@@ -15,7 +15,7 @@ export const List = styled.FlatList.attrs({
 })``;
 export const Item = styled.View`
   padding: 20px;
-  margin: 20px;
+  margin: 10px 20px;
   border-radius: 4px;
   background: #fff;
   width: ${Dimensions.get('window').width - 40};
@@ -47,13 +47,14 @@ export const CartButton = styled(RectButton)`
   flex-direction: row;
 
   background: #7159c1;
-  border-radius: 4px;
-  margin-top: auto;
+  border-radius: 8px;
+  margin-top: 5px;
 `;
 export const ContainerCart = styled.View`
   flex-direction: row;
   background: ${darken(0.03, '#7159c1')};
   padding: 20px;
+  border-radius: 8px;
 `;
 
 export const ItensCart = styled.Text`
@@ -68,7 +69,7 @@ export const TextButton = styled.Text`
   color: #fff;
   font-size: 21px;
   text-transform: uppercase;
-  margin: 0px 5px;
+  margin: 0 5px;
 
   padding: 20px;
 `;

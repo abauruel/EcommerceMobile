@@ -22,7 +22,7 @@ function Header({navigation, cartSize}) {
         </ButtonHome>
         <ContainerCart>
           <ButtonCart onPress={() => navigation.navigate('Cart')}>
-            <Icons name="add-shopping-cart" size={28} color="#FFF" />
+            <Icons name="add-shopping-cart" size={24} color="#FFF" />
           </ButtonCart>
           <Circle>
             <ItensCart>{cartSize}</ItensCart>

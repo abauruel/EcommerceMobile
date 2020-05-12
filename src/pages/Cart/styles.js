@@ -36,7 +36,7 @@ export const IconDelete = styled(Icon)`
 `;
 
 export const ContainerCart = styled.View`
-  margin: 0 20px;
+  margin: 10px 20px;
   border-radius: 4px;
   background: #fff;
   max-height: ${Dimensions.get('window').height - 140};
